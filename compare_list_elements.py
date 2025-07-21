@@ -62,8 +62,8 @@ else:
         if el not in set_1:
             one_not_two.append(el)
 
-    print(f"{len(set_1)} einzigartige Elemente in: {files[0]}")
-    print(f"{len(set_2)} einzigartige Elemente in: {files[1]}")
+    print(f"{len(set_1)} Einträge in: {files[0]}")
+    print(f"{len(set_2)} Einträge in: {files[1]}")
 
     print(f"{len(one_not_two)} Einträge nur in: {files[0]}")
     print(f"{len(two_not_one)} Einträge nur in: {files[1]}")
