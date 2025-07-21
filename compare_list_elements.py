@@ -35,23 +35,24 @@ for el in files:
 if len(files) != 2:
     print(f"Der Vergleich benötigt 2 csv-Dateien, {len(files)} gefunden.")
 else:
+    print(f"Vergleich von {files[0]} und {files[1]}")
     with open(filepath + files[0]) as csv_liste_1:
         liste_reader = list(csv.reader(csv_liste_1, delimiter=delim))
-        for el in enumerate(liste_reader[0]):
-            if re.search(searchterm, el[1].lower()):
-                i = el[0]
+        for k, v in enumerate(liste_reader[0]):
+            if re.search(searchterm, v.lower()):
+                break
         for el in liste_reader:
-            if not re.search(searchterm, el[i].lower()):
-                set_1.add(el[i])
+            if not re.search(searchterm, el[k].lower()):
+                set_1.add(el[k])
 
     with open(filepath + files[1]) as csv_liste_2:
         liste_reader = list(csv.reader(csv_liste_2, delimiter=delim))
-        for el in enumerate(liste_reader[0]):
-            if re.search(searchterm, el[1].lower()):
-                i = el[0]
+        for k, v in enumerate(liste_reader[0]):
+            if re.search(searchterm, v.lower()):
+                break
         for el in liste_reader:
-            if not re.search(searchterm, el[i].lower()):
-                set_2.add(el[i])
+            if not re.search(searchterm, el[k].lower()):
+                set_2.add(el[k])
 
     for el in set_1:
         if el not in set_2:
@@ -61,15 +62,8 @@ else:
         if el not in set_1:
             one_not_two.append(el)
 
-    print(f"{len(set_1)} einzigartige Elemente gefunden in: {files[0]}")
-    print(f"{len(set_2)} einzigartige Elemente gefunden in: {files[1]}")
+    print(f"{len(set_1)} einzigartige Elemente in: {files[0]}")
+    print(f"{len(set_2)} einzigartige Elemente in: {files[1]}")
 
-    if one_not_two:
-        print(f"Nur in der ersten Liste vorhanden: {one_not_two}")
-    else:
-        print('Es gibt keine Elemente, die nur in der ersten Liste vorhanden sind.')
-
-    if two_not_one:
-        print(f"Nur in der zweiten Liste vorhanden: {two_not_one}")
-    else:
-        print('Es gibt keine Elemente, die nur in der zweiten Liste vorhanden sind.')
+    print(f"{len(one_not_two)} Einträge nur in: {files[0]}")
+    print(f"{len(two_not_one)} Einträge nur in: {files[1]}")
