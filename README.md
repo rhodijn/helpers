@@ -1,2 +1,2 @@
 # helpers
-a handful of simple scripts to make your life easier
+a handful of simple scripts to make life easier
