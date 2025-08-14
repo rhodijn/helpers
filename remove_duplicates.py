@@ -32,5 +32,5 @@ for el in files:
 if len(files) > 1:
     print(f"Das Skript entfernt doppelte Titel aus 1 csv-Datei, {len(files)} gefunden.")
 else:
-    files.append(f"{files[0].split('.')[0]}_clnd.csv")
+    files.append(f"{files[0].split('.')[0]}_CLEANED.csv")
     print(f"Doppelte Einträge aus {files[0]} entfernt und in {files[1]}")
