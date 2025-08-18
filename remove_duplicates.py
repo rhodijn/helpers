@@ -9,6 +9,7 @@
 #   ##                 ##
 #     ###################
 
+# This script removes ducplicates from a csv column and saves the list to a new csv-file.
 
 import csv, os, re
 

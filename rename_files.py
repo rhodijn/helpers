@@ -9,6 +9,7 @@
 #   ##                 ##
 #     ###################
 
+# This script renames all files in a folder.
 
 import os
 
