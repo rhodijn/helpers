@@ -22,7 +22,7 @@ liste = []
 one_not_two = []
 two_not_one = []
 parts = []
-searchterm = 'barcode'
+searchterm = 'signatur'
 set_1 = set()
 set_2 = set()
 
