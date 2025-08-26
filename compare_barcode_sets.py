@@ -43,14 +43,15 @@ else:
         for el in liste_reader:
             if not re.search(searchterm, el[0].lower()):
                 set_1.add(el[0])
-                print(len(set_1))
+        print(len(set_1))
 
     with open(filepath + files[1]) as csv_liste_2:
         liste_reader = list(csv.reader(csv_liste_2, delimiter=delim))
-        for row in liste_reader[0]:
-            set_2.add(row)
+        for el in liste_reader:
+            if not re.search(searchterm, el[0].lower()):
+                set_2.add(el[0])
+        print(len(set_2))
 
-    print(set_1)
 """
     print(f"{len(set_1)} Einträge in: {files[0]}")
     print(f"{len(set_2)} Einträge in: {files[1]}")
