@@ -49,6 +49,7 @@ else:
             if not re.search(searchterm, el[0].lower()):
                 set_2.add(el[0])
 
+    data.clear()
     data.append(['barcode'])
     for element in set_1.union(set_2):
         data.append([element])
