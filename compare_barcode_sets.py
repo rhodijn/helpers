@@ -15,6 +15,7 @@
 import csv, os, re
 
 
+data = []
 delim = ';'
 files = []
 filepath = 'files/'
@@ -48,10 +49,22 @@ else:
             if not re.search(searchterm, el[0].lower()):
                 set_2.add(el[0])
 
-    with open(f"{filepath}output/union.csv", 'w', newline='\n') as csv_file:
+    data.append(['barcode'])
+    for element in set_1.union(set_2):
+        data.append([element])
+
+    with open(f"{filepath}output/union.csv", 'w', newline='', encoding='utf-8') as csv_file:
         writer = csv.writer(csv_file, delimiter=';')
-        writer.writerow('barcode')
-        writer.writerow(set_1.union(set_2))
+        writer.writerows(data)
+
+    data.clear()
+    data.append(['barcode'])
+    for element in set_1.difference(set_2):
+        data.append([element])
+
+    with open(f"{filepath}output/only_{files[0]}.csv", 'w', newline='', encoding='utf-8') as csv_file:
+        writer = csv.writer(csv_file, delimiter=';')
+        writer.writerows(data)
 
     print(f"{len(set_1)} Einträge in: {files[0]}")
     print(f"{len(set_2)} Einträge in: {files[1]}")
