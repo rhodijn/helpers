@@ -19,7 +19,7 @@ data = []
 delim = ';'
 files = []
 filepath = 'files/'
-searchterm = 'barcode'
+searchterm = 'signatur'
 set_1 = set()
 set_2 = set()
 set_3 = set()
@@ -41,14 +41,16 @@ else:
     with open(filepath + files[0]) as csv_file:
         reader = csv.reader(csv_file, delimiter=delim)
         for el in reader:
-            if not re.search(searchterm, el[0].lower()):
-                set_1.add(el[0])
+            el_ed = ''.join(el[0].strip().split(' '))
+            if not re.search(searchterm, el_ed):
+                set_1.add(el_ed)
 
     with open(filepath + files[1]) as csv_file:
         reader = csv.reader(csv_file, delimiter=delim)
         for el in reader:
-            if not re.search(searchterm, el[0].lower()):
-                set_2.add(el[0])
+            el_ed = ''.join(el[2].strip().split(' '))
+            if not re.search(searchterm, el_ed):
+                set_2.add(el_ed)
 
     data.clear()
     data.append(['barcode'])
