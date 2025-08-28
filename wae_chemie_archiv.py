@@ -40,7 +40,7 @@ else:
 
     with open(filepath + files[0], encoding='utf-8-sig') as csv_file:
         reader = csv.reader(csv_file, delimiter=delim)
-        hdr = next(reader)
+        hdr_0 = next(reader)
         for row in reader:
             el = ''.join(row[0].strip().split(' '))
             if not re.search(searchterm, el):
@@ -54,14 +54,37 @@ else:
             if not re.search(searchterm, el):
                 set_2.add(el)
 
+    hdr = hdr_0
+
     for el in hdr_1:
         if el not in hdr:
             hdr.append(el)
+    
+    for el in range(len(hdr)):
+        hdr[el] = hdr[el].lower()
 
     data.clear()
     data.append(hdr)
 
-    print(data)
+    with open(filepath + files[0], encoding='utf-8-sig') as csv_file:
+        reader = csv.reader(csv_file, delimiter=delim)
+        hdr_0 = next(reader)
+        new_row = []
+        for n, row in enumerate(reader):
+            new_row.clear()
+            for i in range(len(hdr)):
+                new_row.append('')
+            for k, v in enumerate(row):
+                liste = data.append([''.join(v.strip().split(' ')).lower()])
+    '''
+            if n != 0:
+                new_row.clear()
+                for i in range(len(hdr)):
+                    new_row.append('')
+                for k, v in enumerate(row):
+                    new_row[hdr.index(hdr_0[k].lower())] = str(''.join(v.strip().split(' ')).lower())
+                data.append(new_row)
+    '''
 
     with open(f"{filepath}output/union.csv", 'w', newline='', encoding='utf-8') as csv_file:
         writer = csv.writer(csv_file, delimiter=';')
