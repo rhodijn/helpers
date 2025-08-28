@@ -38,35 +38,32 @@ if len(files) != 2:
 else:
     print(f"Vergleich von {files[0]} und {files[1]}")
 
-    with open(filepath + files[0]) as csv_file:
+    with open(filepath + files[0], encoding='utf-8-sig') as csv_file:
         reader = csv.reader(csv_file, delimiter=delim)
-        for el in reader:
-            el_ed = ''.join(el[0].strip().split(' '))
-            if not re.search(searchterm, el_ed):
-                set_1.add(el_ed)
+        hdr = next(reader)
+        for row in reader:
+            el = ''.join(row[0].strip().split(' '))
+            if not re.search(searchterm, el):
+                set_1.add(el)
 
-    with open(filepath + files[1]) as csv_file:
+    with open(filepath + files[1], encoding='utf-8-sig') as csv_file:
         reader = csv.reader(csv_file, delimiter=delim)
-        for el in reader:
-            el_ed = ''.join(el[2].strip().split(' '))
-            if not re.search(searchterm, el_ed):
-                set_2.add(el_ed)
+        hdr_1 = next(reader)
+        for row in reader:
+            el = ''.join(row[2].strip().split(' '))
+            if not re.search(searchterm, el):
+                set_2.add(el)
+
+    for el in hdr_1:
+        if el not in hdr:
+            hdr.append(el)
 
     data.clear()
-    data.append(['barcode'])
-    for element in set_1.union(set_2):
-        data.append([element])
+    data.append(hdr)
+
+    print(data)
 
     with open(f"{filepath}output/union.csv", 'w', newline='', encoding='utf-8') as csv_file:
-        writer = csv.writer(csv_file, delimiter=';')
-        writer.writerows(data)
-
-    data.clear()
-    data.append(['barcode'])
-    for element in set_1.difference(set_2):
-        data.append([element])
-
-    with open(f"{filepath}output/only_{files[0]}", 'w', newline='', encoding='utf-8') as csv_file:
         writer = csv.writer(csv_file, delimiter=';')
         writer.writerows(data)
 
