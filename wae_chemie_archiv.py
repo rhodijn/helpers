@@ -50,7 +50,7 @@ else:
         reader = csv.reader(csv_file, delimiter=delim)
         hdr_1 = next(reader)
         for row in reader:
-            el = ''.join(row[2].strip().split(' '))
+            el = ''.join(row[0].strip().split(' '))
             if not re.search(searchterm, el):
                 set_2.add(el)
 
@@ -75,7 +75,13 @@ else:
             for i in range(len(hdr)):
                 new_row.append('')
             for k, v in enumerate(row):
-                liste = data.append([''.join(v.strip().split(' ')).lower()])
+                new_row[hdr.index(hdr_0[k].lower())] = ''.join(v.strip().split(' ')).lower()
+            
+            data.append(new_row)
+
+    for i in range(10):
+        print(data[i])
+    
     '''
             if n != 0:
                 new_row.clear()
@@ -86,7 +92,7 @@ else:
                 data.append(new_row)
     '''
 
-    with open(f"{filepath}output/union.csv", 'w', newline='', encoding='utf-8') as csv_file:
+    with open(f"{filepath}output/union.csv", 'w', encoding='utf-8') as csv_file:
         writer = csv.writer(csv_file, delimiter=';')
         writer.writerows(data)
 
