@@ -42,7 +42,7 @@ else:
         reader = csv.reader(csv_file, delimiter=delim)
         hdr_0 = next(reader)
         for row in reader:
-            el = ''.join(row[0].strip().split(' '))
+            el = ''.join(row[0].strip().split(' ')).lower()
             if not re.search(searchterm, el):
                 set_1.add(el)
 
@@ -50,9 +50,19 @@ else:
         reader = csv.reader(csv_file, delimiter=delim)
         hdr_1 = next(reader)
         for row in reader:
-            el = ''.join(row[0].strip().split(' '))
+            el = ''.join(row[0].strip().split(' ')).lower()
             if not re.search(searchterm, el):
                 set_2.add(el)
+
+    print(f"{len(set_1)} Einträge in: {files[0]}")
+    print(f"{len(set_2)} Einträge in: {files[1]}")
+
+    print(f"{len(set_1.union(set_2))} Einträge total in beiden Dateien")
+    print(f"{len(set_1.intersection(set_2))} gemeinsame Einträge in beiden Dateien vorhanden")
+    print(f"{len(set_1.difference(set_2))} Einträge ausschliesslich in {files[0]}")
+    print(f"{len(set_2.difference(set_1))} Einträge ausschliesslich in {files[1]}")
+    lost_keys = list(set_2.difference(set_1))
+    print(f"Einträge, die ausschliesslich in {files[1]} sind:\n{lost_keys}")
 
     hdr = hdr_0
 
@@ -63,7 +73,6 @@ else:
     for el in range(len(hdr)):
         hdr[el] = hdr[el].lower()
 
-    data.clear()
     data.append(hdr)
 
     with open(filepath + files[0], encoding='utf-8-sig') as csv_file:
@@ -76,30 +85,28 @@ else:
                 new_row.append('')
             for k, v in enumerate(row):
                 new_row[hdr.index(hdr_0[k].lower())] = ''.join(v.strip().split(' ')).lower()
-            
-            data.append(new_row)
+            data.append(list(new_row))
 
-    for i in range(10):
-        print(data[i])
-    
-    '''
-            if n != 0:
-                new_row.clear()
-                for i in range(len(hdr)):
-                    new_row.append('')
-                for k, v in enumerate(row):
-                    new_row[hdr.index(hdr_0[k].lower())] = str(''.join(v.strip().split(' ')).lower())
-                data.append(new_row)
-    '''
+    with open(filepath + files[1], encoding='utf-8-sig') as csv_file:
+        reader = csv.reader(csv_file, delimiter=delim)
+        hdr_1 = next(reader)
+        new_row = []
+        only_second = []
+        for n, row in enumerate(reader):
+            row[0] = ''.join(row[0].strip().split(' ')).lower()
+            for i in range(len(data)):
+                if row[0] in data[i]:
+                    for k, v in enumerate(row):
+                        data[i][hdr.index(hdr_1[k].lower())] = ''.join(v.strip().split(' ')).lower()
+                elif row[0] in lost_keys:
+                    lost_keys.remove(row[0])
+                    new_row.clear()
+                    for i in range(len(hdr)):
+                        new_row.append('')
+                    for k, v in enumerate(row):
+                        new_row[hdr.index(hdr_1[k].lower())] = ''.join(v.strip().split(' ')).lower()
+                    data.append(list(new_row))
 
-    with open(f"{filepath}output/union.csv", 'w', encoding='utf-8') as csv_file:
+    with open(f"{filepath}output/union.csv", 'w', encoding='utf-8-sig', newline='') as csv_file:
         writer = csv.writer(csv_file, delimiter=';')
         writer.writerows(data)
-
-    print(f"{len(set_1)} Einträge in: {files[0]}")
-    print(f"{len(set_2)} Einträge in: {files[1]}")
-
-    print(f"{len(set_1.union(set_2))} Einträge total in beiden Dateien")
-    print(f"{len(set_1.intersection(set_2))} gemeinsame Einträge in beiden Dateien vorhanden")
-    print(f"{len(set_1.difference(set_2))} Einträge ausschliesslich in {files[0]}")
-    print(f"{len(set_2.difference(set_1))} Einträge ausschliesslich in {files[1]}")
