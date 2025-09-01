@@ -33,7 +33,7 @@ ind = None
 
 
 def play_sound(freq):
-    winsound.Beep(freq, 300)
+    winsound.Beep(freq, 400)
 
 
 files = os.listdir(f"{filepath}/")
