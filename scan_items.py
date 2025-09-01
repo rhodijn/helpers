@@ -15,11 +15,21 @@
 import csv, os, re
 import pandas as pd
 
-barcode = []
+barcodes = []
 files = []
 filepath = 'files'
 ind = None
 
+"""
+Barcodes for Tests
+
+04300003064054
+04300003064053
+04300003064031
+EM000006516443
+EM000006324055
+04300003047949
+"""
 
 files = os.listdir(f"{filepath}/")
 
@@ -32,15 +42,16 @@ df_wae_c = pd.DataFrame(pd.read_csv(f"{filepath}/{files[ind]}", dtype=str, sep='
 
 df_wae_c['strichcode'] = df_wae_c['strichcode'].str.upper()
 
-print(type(df_wae_c))
+while True:
+    barcodes.append(input('scan items (\'q\' to exit): '))
+    if barcodes[-1] == 'q':
+        barcodes.pop()
+        break
 
-barcode.append(input('Bitte scannen: '))
+df_scanned = df_wae_c[df_wae_c['strichcode'].isin(barcodes)]
 
-behalten = df_wae_c['strichcode'].isin(barcode)
+df_deselection = df_scanned[df_scanned['hicr'].isna()]
+df_retention = df_scanned[df_scanned['hicr'].notna()]
 
-print(behalten)
-
-if behalten[0]:
-    print('behalten')
-else:
-    print('ausscheiden')
+print(f"books to keep:\n{df_retention}")
+print(f"book to throw:\n{df_deselection}")
