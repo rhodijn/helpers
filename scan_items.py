@@ -58,6 +58,10 @@ while True:
             print('\t[ THROW             ]')
         else:
             print('\n\t[===================]')
-            print('\t[ BARCODE NOT FOUND ]')
+            print('\t[ barcode not found ]')
     print('\t[===================]\n')
     barcodes.pop()
+    if len(barcodes) != 0:
+        print('\n\t[===================]')
+        print(f"\t[ list error: {len(barcodes)}     ]")
+        print('\t[===================]\n')
