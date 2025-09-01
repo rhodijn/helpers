@@ -10,14 +10,6 @@
 #     ###################
 
 
-import os, winsound
-import pandas as pd
-
-barcodes = []
-files = []
-filepath = 'files'
-ind = None
-
 """
 Barcodes for Testing
 
@@ -28,6 +20,17 @@ EM000006516443
 EM000006324055
 04300003047949
 """
+
+
+import os, winsound
+import pandas as pd
+
+
+barcodes = []
+files = []
+filepath = 'files'
+ind = None
+
 
 def play_sound(freq):
     winsound.Beep(freq, 300)
