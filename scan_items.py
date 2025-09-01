@@ -49,7 +49,7 @@ print('\t[ version 1, by zolo      ]\n\t[=========================]\n')
 while True:
     barcodes.append(input('scan item (or press \'q\' to exit): '))
     if barcodes[-1] == 'q':
-        print('\n\t[===================]\n\t[ bye               ]\n\t[===================]\n')
+        print('\n\t[===================]\n\t[ goodbye           ]\n\t[===================]\n')
         break
     else:
         df_scanned = df_wae_c[df_wae_c['strichcode'].isin(barcodes)]
