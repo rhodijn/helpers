@@ -28,6 +28,7 @@ set_3 = set()
 files = os.listdir(f"{filepath}/")
 files = [f for f in files if os.path.isfile(f"{filepath}/{f}")]
 
+
 for el in files:
     parts = el.split('.')
     if parts[-1] != 'csv':

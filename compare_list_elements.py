@@ -17,7 +17,7 @@ import csv, os, re
 
 delim = ';'
 files = []
-filepath = 'files/'
+filepath = 'files'
 liste = []
 one_not_two = []
 two_not_one = []
@@ -27,7 +27,9 @@ set_1 = set()
 set_2 = set()
 
 
-files = os.listdir(filepath)
+files = os.listdir(f"{filepath}/")
+files = [f for f in files if os.path.isfile(f"{filepath}/{f}")]
+
 
 for el in files:
     parts = el.split('.')
@@ -38,7 +40,7 @@ if len(files) != 2:
     print(f"Der Vergleich benötigt 2 csv-Dateien, {len(files)} gefunden.")
 else:
     print(f"Vergleich von {files[0]} und {files[1]}")
-    with open(filepath + files[0]) as csv_liste_1:
+    with open(f"{filepath}/{files[0]}") as csv_liste_1:
         liste_reader = list(csv.reader(csv_liste_1, delimiter=delim))
         for k, v in enumerate(liste_reader[0]):
             if re.search(searchterm, v.lower()):
@@ -47,7 +49,7 @@ else:
             if not re.search(searchterm, el[k].lower()):
                 set_1.add(el[k])
 
-    with open(filepath + files[1]) as csv_liste_2:
+    with open(f"{filepath}/{files[1]}") as csv_liste_2:
         liste_reader = list(csv.reader(csv_liste_2, delimiter=delim))
         for k, v in enumerate(liste_reader[0]):
             if re.search(searchterm, v.lower()):

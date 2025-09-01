@@ -18,14 +18,15 @@ import csv, os, re
 data = []
 delim = ';'
 files = []
-filepath = 'files/'
+filepath = 'files'
 searchterm = 'barcode'
 set_1 = set()
 set_2 = set()
 set_3 = set()
 
 
-files = os.listdir(filepath)
+files = os.listdir(f"{filepath}/")
+files = [f for f in files if os.path.isfile(f"{filepath}/{f}")]
 
 
 for el in files:
@@ -38,13 +39,13 @@ if len(files) != 2:
 else:
     print(f"Vergleich von {files[0]} und {files[1]}")
 
-    with open(filepath + files[0]) as csv_file:
+    with open(f"{filepath}/{files[0]}") as csv_file:
         reader = csv.reader(csv_file, delimiter=delim)
         for el in reader:
             if not re.search(searchterm, el[0].lower()):
                 set_1.add(el[0])
 
-    with open(filepath + files[1]) as csv_file:
+    with open(f"{filepath}/{files[1]}") as csv_file:
         reader = csv.reader(csv_file, delimiter=delim)
         for el in reader:
             if not re.search(searchterm, el[0].lower()):
@@ -55,7 +56,7 @@ else:
     for element in set_1.union(set_2):
         data.append([element])
 
-    with open(f"{filepath}output/union.csv", 'w', newline='', encoding='utf-8') as csv_file:
+    with open(f"{filepath}/output/union.csv", 'w', newline='', encoding='utf-8') as csv_file:
         writer = csv.writer(csv_file, delimiter=';')
         writer.writerows(data)
 
@@ -64,7 +65,7 @@ else:
     for element in set_1.difference(set_2):
         data.append([element])
 
-    with open(f"{filepath}output/only_{files[0]}", 'w', newline='', encoding='utf-8') as csv_file:
+    with open(f"{filepath}/output/only_{files[0]}", 'w', newline='', encoding='utf-8') as csv_file:
         writer = csv.writer(csv_file, delimiter=';')
         writer.writerows(data)
 

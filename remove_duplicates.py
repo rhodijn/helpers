@@ -28,6 +28,7 @@ mms_id_list = []
 files = os.listdir(f"{filepath}/")
 files = [f for f in files if os.path.isfile(f"{filepath}/{f}")]
 
+
 for el in files:
     if not el.endswith('.csv'):
         files.remove(el)

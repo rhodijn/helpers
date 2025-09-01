@@ -35,8 +35,10 @@ ind = None
 def play_sound(freq):
     winsound.Beep(freq, 300)
 
+
 files = os.listdir(f"{filepath}/")
 files = [f for f in files if os.path.isfile(f"{filepath}/{f}")]
+
 
 for k, v in enumerate(files):
     parts = v.split('.')
