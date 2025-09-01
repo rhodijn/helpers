@@ -22,7 +22,7 @@ EM000006324055
 """
 
 
-import os, winsound
+import chime, os, winsound
 import pandas as pd
 
 
@@ -32,8 +32,7 @@ filepath = 'files'
 ind = None
 
 
-def play_sound(freq):
-    winsound.Beep(freq, 400)
+chime.theme('material')
 
 
 files = os.listdir(f"{filepath}/")
@@ -60,11 +59,11 @@ while True:
     else:
         df_scanned = df_wae_c[df_wae_c['strichcode'].isin(barcodes)]
         if df_scanned[df_scanned['hicr'].notna()].size > 0:
-            play_sound(1760)
+            chime.info()
             print('\n\t\t\t\t[===================]')
             print('\t\t\t\t[ KEEP!             ]\n\t\t\t', end='')
         elif df_scanned[df_scanned['hicr'].isna()].size > 0:
-            play_sound(880)
+            chime.warning()
             print('\n\t[===================]')
             print('\t[ THROW             ]')
         else:
@@ -73,6 +72,7 @@ while True:
     print('\t[===================]\n')
     barcodes.pop()
     if len(barcodes) != 0:
+        chime.error()
         print('\n\t[===================]')
         print(f"\t[ list error: {len(barcodes)}     ]")
         print('\t[===================]\n')
