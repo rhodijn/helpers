@@ -54,11 +54,11 @@ while True:
     else:
         df_scanned = df_wae_c[df_wae_c['strichcode'].isin(barcodes)]
         if df_scanned[df_scanned['hicr'].notna()].size > 0:
-            play_sound(2000)
+            play_sound(1760)
             print('\n\t\t\t\t[===================]')
             print('\t\t\t\t[ KEEP!             ]\n\t\t\t', end='')
         elif df_scanned[df_scanned['hicr'].isna()].size > 0:
-            play_sound(1000)
+            play_sound(880)
             print('\n\t[===================]')
             print('\t[ THROW             ]')
         else:
