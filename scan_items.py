@@ -45,13 +45,15 @@ df_wae_c['strichcode'] = df_wae_c['strichcode'].str.upper()
 while True:
     barcodes.append(input('scan items (\'q\' to exit): '))
     if barcodes[-1] == 'q':
-        barcodes.pop()
+        print('\n\t\t\t[=========]\n\t\t\t[  BYE    ]\n\t\t\t[=========]\n')
         break
-
-df_scanned = df_wae_c[df_wae_c['strichcode'].isin(barcodes)]
-
-df_deselection = df_scanned[df_scanned['hicr'].isna()]
-df_retention = df_scanned[df_scanned['hicr'].notna()]
-
-print(f"books to keep:\n{df_retention}")
-print(f"book to throw:\n{df_deselection}")
+    else:
+        df_scanned = df_wae_c[df_wae_c['strichcode'].isin(barcodes)]
+        if df_scanned[df_scanned['hicr'].notna()].size > 0:
+            print('\n\t\t\t[=========]')
+            print('\t\t\t[  KEEP!  ]\n\t\t', end='')
+        else:
+            print('\n\t[=========]')
+            print('\t[  THROW  ]')
+    print('\t[=========]\n')
+    barcodes.pop()
