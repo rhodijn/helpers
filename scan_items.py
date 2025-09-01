@@ -46,15 +46,18 @@ print('\t[ version 1, by zolo      ]\n\t[=========================]\n')
 while True:
     barcodes.append(input('scan item (or press \'q\' to exit): '))
     if barcodes[-1] == 'q':
-        print('\n\t[=========]\n\t[ bye     ]\n\t[=========]\n')
+        print('\n\t[===================]\n\t[ bye               ]\n\t[===================]\n')
         break
     else:
         df_scanned = df_wae_c[df_wae_c['strichcode'].isin(barcodes)]
         if df_scanned[df_scanned['hicr'].notna()].size > 0:
-            print('\n\t\t\t\t[=========]')
-            print('\t\t\t\t[ KEEP!   ]\n\t\t\t', end='')
+            print('\n\t\t\t\t[===================]')
+            print('\t\t\t\t[ KEEP!             ]\n\t\t\t', end='')
+        elif df_scanned[df_scanned['hicr'].isna()].size > 0:
+            print('\n\t[===================]')
+            print('\t[ THROW             ]')
         else:
-            print('\n\t[=========]')
-            print('\t[ THROW   ]')
-    print('\t[=========]\n')
+            print('\n\t[===================]')
+            print('\t[ BARCODE NOT FOUND ]')
+    print('\t[===================]\n')
     barcodes.pop()
