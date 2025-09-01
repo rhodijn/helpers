@@ -18,15 +18,15 @@ import csv, os, re
 data = []
 delim = ';'
 files = []
-filepath = 'files/'
+filepath = 'files'
 searchterm = 'signatur'
 set_1 = set()
 set_2 = set()
 set_3 = set()
 
 
-files = os.listdir(filepath)
-
+files = os.listdir(f"{filepath}/")
+files = [f for f in files if os.path.isfile(f"{filepath}/{f}")]
 
 for el in files:
     parts = el.split('.')
@@ -38,7 +38,7 @@ if len(files) != 2:
 else:
     print(f"Vergleich von {files[0]} und {files[1]}")
 
-    with open(filepath + files[0], encoding='utf-8-sig') as csv_file:
+    with open(f"{filepath}/{files[0]}", encoding='utf-8-sig') as csv_file:
         reader = csv.reader(csv_file, delimiter=delim)
         hdr_0 = next(reader)
         for row in reader:
@@ -46,7 +46,7 @@ else:
             if not re.search(searchterm, el):
                 set_1.add(el)
 
-    with open(filepath + files[1], encoding='utf-8-sig') as csv_file:
+    with open(f"{filepath}/{files[1]}", encoding='utf-8-sig') as csv_file:
         reader = csv.reader(csv_file, delimiter=delim)
         hdr_1 = next(reader)
         for row in reader:
@@ -75,7 +75,7 @@ else:
 
     data.append(hdr)
 
-    with open(filepath + files[0], encoding='utf-8-sig') as csv_file:
+    with open(f"{filepath}/{files[0]}", encoding='utf-8-sig') as csv_file:
         reader = csv.reader(csv_file, delimiter=delim)
         hdr_0 = next(reader)
         new_row = []
@@ -87,7 +87,7 @@ else:
                 new_row[hdr.index(hdr_0[k].lower())] = ''.join(v.strip().split(' ')).lower()
             data.append(list(new_row))
 
-    with open(filepath + files[1], encoding='utf-8-sig') as csv_file:
+    with open(f"{filepath}/{files[1]}", encoding='utf-8-sig') as csv_file:
         reader = csv.reader(csv_file, delimiter=delim)
         hdr_1 = next(reader)
         new_row = []
@@ -107,6 +107,6 @@ else:
                         new_row[hdr.index(hdr_1[k].lower())] = ''.join(v.strip().split(' ')).lower()
                     data.append(list(new_row))
 
-    with open(f"{filepath}output/union.csv", 'w', encoding='utf-8-sig', newline='') as csv_file:
+    with open(f"{filepath}/output/union.csv", 'w', encoding='utf-8-sig', newline='') as csv_file:
         writer = csv.writer(csv_file, delimiter=';')
         writer.writerows(data)
