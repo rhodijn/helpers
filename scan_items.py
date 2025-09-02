@@ -11,6 +11,10 @@
 #     ###################
 
 
+# This script reads a csv-file and evaluates the info in a specific column.
+# The feedback when an item's barcode is scanned is whether or not to retain the item.
+
+
 """
 Barcodes for Testing
 
