@@ -39,9 +39,6 @@ soundpath = 'sounds'
 ind = None
 
 
-mixer.init()
-
-
 files = os.listdir(f"{filepath}/")
 files = [f for f in files if os.path.isfile(f"{filepath}/{f}")]
 
@@ -52,38 +49,38 @@ for k, v in enumerate(files):
         ind = k
 
 df_wae_c = pd.DataFrame(pd.read_csv(f"{filepath}/{files[ind]}", dtype=str, sep=';'))
-
 df_wae_c['strichcode'] = df_wae_c['strichcode'].str.upper()
 
-print('\n\t[=========================]\n\t[ Archivbestand Chemie    ]')
-print('\t[ version 1, by zolo      ]\n\t[=========================]\n')
+print(f"\n\t[{46 * '='}]\n\t[ {'Archivbestand Chemie':<45}]")
+print(f"\t[ {'Version 1, by zolo':<45}]\n\t[{46 * '='}]\n")
+mixer.init()
 
 while True:
     barcodes.append(input('scan item (or press \'q\' to exit): '))
     if barcodes[-1] == 'q':
         mixer.quit()
-        print('\n\t[===================]\n\t[ goodbye           ]\n\t[===================]\n')
+        print(f"\n\t[{22 * '='}]\n\t[ {'goodbye':<21}]\n\t[{22 * '='}]\n")
         break
     else:
         df_scanned = df_wae_c[df_wae_c['strichcode'].isin(barcodes)]
         if df_scanned[df_scanned['hicr'].notna()].size > 0:
             plays = mixer.Sound(f"{soundpath}/success.mp3")
             plays.play()
-            print('\n\t\t\t\t[===================]')
-            print('\t\t\t\t[ KEEP!             ]\n\t\t\t', end='')
+            print(f"\n\t\t\t\t[{22 * '='}]")
+            print(f"\t\t\t\t[ {'KEEP!':<21}]\n\t\t\t", end='')
         elif df_scanned[df_scanned['hicr'].isna()].size > 0:
             plays = mixer.Sound(f"{soundpath}/error.mp3")
             plays.play()
-            print('\n\t[===================]')
-            print('\t[ THROW             ]')
+            print(f"\n\t[{22 * '='}]")
+            print(f"\t[ THROW{16 * ' '}]")
         else:
-            print('\n\t[===================]')
-            print('\t[ barcode not found ]')
-    print('\t[===================]\n')
+            print(f"\n\t[{22 * '='}]")
+            print(f"\t[ {'barcode not found':<21}]")
+    print(f"\t[{22 * '='}]\n")
     barcodes.pop()
     if len(barcodes) != 0:
         plays = mixer.Sound(f"{soundpath}/success.mp3")
         plays.play()
-        print('\n\t[===================]')
-        print(f"\t[ list error: {len(barcodes)}     ]")
-        print('\t[===================]\n')
+        print(f"\n\t[{22 * '='}]")
+        print(f"\t[ list error: {len(barcodes):<9}]")
+        print(f"\t[{22 * '='}]\n")
