@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 
-###################
-##                 ##
-##               ##
-  ######       ##
-    ##       ######
-  ##               ##
-##                 ##
-  ###################
+
+#   ###################
+#   ##                 ##
+#   ##               ##
+#     ######       ##
+#       ##       ######
+#     ##               ##
+#   ##                 ##
+#     ###################
 
 
 """
@@ -22,17 +23,19 @@ EM000006324055
 """
 
 
-import chime, os, winsound
+from pygame import mixer
+import os
 import pandas as pd
 
 
 barcodes = []
 files = []
 filepath = 'files'
+soundpath = 'sounds'
 ind = None
 
 
-chime.theme('material')
+mixer.init()
 
 
 files = os.listdir(f"{filepath}/")
@@ -55,15 +58,18 @@ while True:
     barcodes.append(input('scan item (or press \'q\' to exit): '))
     if barcodes[-1] == 'q':
         print('\n\t[===================]\n\t[ goodbye           ]\n\t[===================]\n')
+        mixer.quit()
         break
     else:
         df_scanned = df_wae_c[df_wae_c['strichcode'].isin(barcodes)]
         if df_scanned[df_scanned['hicr'].notna()].size > 0:
-            chime.info()
+            plays = mixer.Sound(f"{soundpath}/success.mp3")
+            plays.play()
             print('\n\t\t\t\t[===================]')
             print('\t\t\t\t[ KEEP!             ]\n\t\t\t', end='')
         elif df_scanned[df_scanned['hicr'].isna()].size > 0:
-            chime.warning()
+            plays = mixer.Sound(f"{soundpath}/error.mp3")
+            plays.play()
             print('\n\t[===================]')
             print('\t[ THROW             ]')
         else:
@@ -72,7 +78,8 @@ while True:
     print('\t[===================]\n')
     barcodes.pop()
     if len(barcodes) != 0:
-        chime.error()
+        plays = mixer.Sound(f"{soundpath}/success.mp3")
+        plays.play()
         print('\n\t[===================]')
         print(f"\t[ list error: {len(barcodes)}     ]")
         print('\t[===================]\n')
