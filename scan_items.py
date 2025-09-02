@@ -59,7 +59,7 @@ while True:
     barcodes.append(input('scan item (or press \'q\' to exit): '))
     if barcodes[-1] == 'q':
         mixer.quit()
-        print(f"\n\t[{22 * '='}]\n\t[ {'goodbye':<21}]\n\t[{22 * '='}]\n")
+        print(f"\n\t[{46 * '='}]\n\t[ {'goodbye':<45}]\n\t[{46 * '='}]\n")
         break
     else:
         df_scanned = df_wae_c[df_wae_c['strichcode'].isin(barcodes)]
@@ -79,7 +79,7 @@ while True:
     print(f"\t[{22 * '='}]\n")
     barcodes.pop()
     if len(barcodes) != 0:
-        plays = mixer.Sound(f"{soundpath}/success.mp3")
+        plays = mixer.Sound(f"{soundpath}/error.mp3")
         plays.play()
         print(f"\n\t[{22 * '='}]")
         print(f"\t[ list error: {len(barcodes):<9}]")
