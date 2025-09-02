@@ -52,7 +52,9 @@ df_wae_c = pd.DataFrame(pd.read_csv(f"{filepath}/{files[ind]}", dtype=str, sep='
 df_wae_c['strichcode'] = df_wae_c['strichcode'].str.upper()
 
 print(f"\n\t[{46 * '='}]\n\t[ {'Archivbestand Chemie':<45}]")
-print(f"\t[ {'Version 1, by zolo':<45}]\n\t[{46 * '='}]\n")
+print(f"\t[{46 * ' '}]\n\t[ {'Use a barcode scanner to scan items.':<45}]")
+print(f"\t[ {'You will get acoustic and visual feedback.':<45}]\n\t[{46 * ' '}]")
+print(f"\t[ {'Version 1, by zolo ':>45}]\n\t[{46 * '='}]\n")
 mixer.init()
 
 while True:
