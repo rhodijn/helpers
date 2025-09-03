@@ -51,31 +51,38 @@ for k, v in enumerate(files):
 df_wae_c = pd.DataFrame(pd.read_csv(f"{filepath}/{files[ind]}", dtype=str, sep=';'))
 df_wae_c['strichcode'] = df_wae_c['strichcode'].str.upper()
 
+mixer.init()
+
+# print the welcome message
 print(f"\n\t[{46 * '='}]\n\t[ {'Archivbestand Chemie':<45}]")
 print(f"\t[{46 * ' '}]\n\t[ {'Use a barcode scanner to scan items.':<45}]")
 print(f"\t[ {'You will get acoustic and visual feedback.':<45}]\n\t[{46 * ' '}]")
 print(f"\t[ {'Version 1, by zolo ':>45}]\n\t[{46 * '='}]\n")
-mixer.init()
 
 while True:
-    barcodes.append(input('scan item (or press \'q\' to exit): '))
+    barcodes.append(input(f"scan item (or press 'q' to exit): "))
     if barcodes[-1] == 'q':
+        # if the input is 'q'
         mixer.quit()
         print(f"\n\t[{46 * '='}]\n\t[ {'goodbye':<45}]\n\t[{46 * '='}]\n")
         break
     else:
+        # if the input is not 'q'
         df_scanned = df_wae_c[df_wae_c['strichcode'].isin(barcodes)]
         if df_scanned[df_scanned['hicr'].notna()].size > 0:
+            # if the column 'hicr' is not empty => marked to retain
             plays = mixer.Sound(f"{soundpath}/success.mp3")
             plays.play()
             print(f"\n\t\t\t\t[{22 * '='}]")
             print(f"\t\t\t\t[ {'KEEP!':<21}]\n\t\t\t", end='')
         elif df_scanned[df_scanned['hicr'].isna()].size > 0:
+            # if the column 'hicr' is empty => not marked to retain
             plays = mixer.Sound(f"{soundpath}/error.mp3")
             plays.play()
             print(f"\n\t[{22 * '='}]")
             print(f"\t[ THROW{16 * ' '}]")
         else:
+            # if the item's barcode is not in the spreadsheet
             print(f"\n\t[{22 * '='}]")
             print(f"\t[ {'barcode not found':<21}]")
     print(f"\t[{22 * '='}]\n")
