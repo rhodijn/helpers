@@ -67,7 +67,7 @@ while True:
         print(f"\n\t[{46 * '='}]\n\t[ {'goodbye':<45}]\n\t[{46 * '='}]\n")
         break
     else:
-        # if the input is not 'q'
+        # the input is not 'q'
         df_scanned = df_wae_c[df_wae_c['strichcode'].isin(barcodes)]
         if df_scanned[df_scanned['hicr'].notna()].size > 0:
             # if the column 'hicr' is not empty => marked to retain
