@@ -96,6 +96,7 @@ while True:
             print(f"\t[ {'barcode not found':<21}]")
     print(f"\t[{22 * '='}]\n")
     barcodes.pop()
+    # catch an error (if barcodes are not correctly removed from list)
     if len(barcodes) != 0:
         plays = mixer.Sound(f"{soundpath}/error.mp3")
         plays.play()
