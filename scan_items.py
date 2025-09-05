@@ -43,15 +43,18 @@ files = os.listdir(f"{filepath}/")
 files = [f for f in files if os.path.isfile(f"{filepath}/{f}")]
 
 
+# find the first csv-file in the folder
 for k, v in enumerate(files):
     parts = v.split('.')
     if parts[-1] == 'csv':
         ind = k
 
+
 df_wae_c = pd.DataFrame(pd.read_csv(f"{filepath}/{files[ind]}", dtype=str, sep=';'))
 df_wae_c['strichcode'] = df_wae_c['strichcode'].str.upper()
 
 mixer.init()
+
 
 # print the welcome message
 print(f"\n\t[{46 * '='}]\n\t[ {'Archivbestand Chemie':<45}]")
@@ -59,6 +62,7 @@ print(f"\t[{46 * ' '}]\n\t[ {'Use a barcode scanner to scan items.':<45}]")
 print(f"\t[ {'You will get acoustic and visual feedback.':<45}]\n\t[{46 * ' '}]")
 print(f"\t[ {'Version 1, by zolo ':>45}]\n\t[{46 * '='}]\n")
 
+# the main loop of the script
 while True:
     barcodes.append(input(f"scan item (or press 'q' to exit): "))
     if barcodes[-1] == 'q':
