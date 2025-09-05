@@ -62,6 +62,7 @@ print(f"\t[{46 * ' '}]\n\t[ {'Use a barcode scanner to scan items.':<45}]")
 print(f"\t[ {'You will get acoustic and visual feedback.':<45}]\n\t[{46 * ' '}]")
 print(f"\t[ {'Version 1, by zolo ':>45}]\n\t[{46 * '='}]\n")
 
+
 # the main loop of the script
 while True:
     barcodes.append(input(f"scan item (or press 'q' to exit): "))
