@@ -39,6 +39,7 @@ soundpath = 'sounds'
 ind = None
 
 
+# scan folder and exclude subfolders
 files = os.listdir(f"{filepath}/")
 files = [f for f in files if os.path.isfile(f"{filepath}/{f}")]
 
@@ -50,6 +51,7 @@ for k, v in enumerate(files):
         ind = k
 
 
+# convert csv-file to dataframe and capitalize the barccode column
 df_wae_c = pd.DataFrame(pd.read_csv(f"{filepath}/{files[ind]}", dtype=str, sep=';'))
 df_wae_c['strichcode'] = df_wae_c['strichcode'].str.upper()
 
