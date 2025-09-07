@@ -11,12 +11,12 @@
 #     ###################
 
 
-# This script reads a csv-file and evaluates the info in a specific column.
-# The feedback when an item's barcode is scanned is whether or not to retain the item.
+# this script reads a csv-file and evaluates the info in a specific column
+# the feedback when an item's barcode is scanned is whether or not to retain the item
 
 
 """
-Barcodes for Testing
+barcodes for testing
 
 04300003064054
 04300003064053
