@@ -72,6 +72,6 @@ for i, el in enumerate(df_wae_loeschen['barcode']):
     df_wae_loeschen.loc[i, 'mms id'] = mmsid_iz
 
 try:
-    df_wae_loeschen.to_csv('files/output/wae_loeschen.csv', index=False, sep=';')
+    df_wae_loeschen.to_csv(f"{filepath}/files/output/wae_loeschen.csv", index=False, sep=';')
 except Exception as e:
     print(f"an error occurred: {e}")
