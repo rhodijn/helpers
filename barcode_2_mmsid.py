@@ -58,7 +58,7 @@ for k, v in enumerate(files):
     if parts[-1] == 'csv':
         ind = k
 
-print(files[ind])
+print(f"File: {files[ind]}")
 
 # convert csv-file to dataframe and capitalize the barccode column
 df_wae_loeschen = pd.DataFrame(pd.read_csv(f"{filepath}/{files[ind]}", dtype=str, sep=';'))
@@ -75,6 +75,6 @@ for i, el in enumerate(df_wae_loeschen['barcode']):
         df_wae_loeschen.loc[i, 'mms id'] = e
 
 try:
-    df_wae_loeschen.to_csv(f"{filepath}/files/output/wae_loeschen.csv", index=False, sep=';')
+    df_wae_loeschen.to_csv(f"{filepath}/output/wae_loeschen.csv", sep=';')
 except Exception as e:
     print(f"an error occurred: {e}")
