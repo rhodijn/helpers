@@ -1,3 +1,4 @@
 files/
 processed/
 .DS_Store
+.env
