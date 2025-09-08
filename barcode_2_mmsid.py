@@ -68,8 +68,11 @@ df_wae_loeschen['barcode'] = df_wae_loeschen['barcode'].str.upper()
 for i, el in enumerate(df_wae_loeschen['barcode']):
     req, get_iz_mmsid = api_request('get', el, 'json', 'items?item_barcode=')
     data = json.loads(get_iz_mmsid.content.decode(encoding='utf-8'))
-    mmsid_iz = data['bib_data']['mms_id']
-    df_wae_loeschen.loc[i, 'mms id'] = mmsid_iz
+    try:
+        mmsid_iz = data['bib_data']['mms_id']
+        df_wae_loeschen.loc[i, 'mms id'] = mmsid_iz
+    except Exception as e:
+        df_wae_loeschen.loc[i, 'mms id'] = e
 
 try:
     df_wae_loeschen.to_csv(f"{filepath}/files/output/wae_loeschen.csv", index=False, sep=';')
