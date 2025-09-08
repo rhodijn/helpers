@@ -34,7 +34,7 @@ import pandas as pd
 
 barcodes = []
 files = []
-filepath = 'files/chemie'
+filepath = 'files'
 soundpath = 'sounds'
 ind = None
 
@@ -62,8 +62,7 @@ mixer.init()
 print(f"\n\t[{46 * '='}]\n\t[ {'Archivbestand Chemie':<44} ]")
 print(f"\t[{46 * ' '}]\n\t[ {'Use a barcode scanner to scan items.':<44} ]")
 print(f"\t[ {'You will get acoustic and visual feedback.':<44} ]\n\t[{46 * ' '}]")
-print(f"\t[{46 * ' '}]\n\t[ {str('Reading from file: ' + files[ind]):<44} ]")
-print(f"\t[{46 * ' '}]\n\t[ {'Version 1, by zolo':>44} ]\n\t[{46 * '='}]\n")
+print(f"\t[ {'Version 1, by zolo':>44} ]\n\t[{46 * '='}]\n")
 
 
 # the main loop of the script
@@ -88,7 +87,7 @@ while True:
             plays = mixer.Sound(f"{soundpath}/error.mp3")
             plays.play()
             print(f"\n\t[{22 * '='}]")
-            print(f"\t[ {'THROW':<20} ]")
+            print(f"\t[ THROW{16 * ' '}]")
         else:
             # if the item's barcode is not in the spreadsheet
             plays = mixer.Sound(f"{soundpath}/error.mp3")
@@ -102,5 +101,5 @@ while True:
         plays = mixer.Sound(f"{soundpath}/error.mp3")
         plays.play()
         print(f"\n\t[{22 * '='}]")
-        print(f"\t[ {str('list error: ' + str(len(barcodes))):<20} ]")
+        print(f"\t[ list error: {len(barcodes):<8} ]")
         print(f"\t[{22 * '='}]\n")
