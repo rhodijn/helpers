@@ -11,32 +11,16 @@
 #     ###################
 
 
-# this script reads a csv-file and evaluates the info in a specific column
-# the feedback when an item's barcode is scanned is whether or not to retain the item
+# this script find the mms ids to the items in a list of barcodes
 
 
-"""
-barcodes for testing
-
-04300003064054
-04300003064053
-04300003064031
-EM000006516443
-EM000006324055
-04300003047949
-"""
-
-
-from pygame import mixer
-import os
+import math, os
 import pandas as pd
 
 
 barcodes = []
 files = []
 filepath = 'files'
-soundpath = 'sounds'
-ind = None
 
 
 # scan folder and exclude subfolders
@@ -50,56 +34,15 @@ for k, v in enumerate(files):
     if parts[-1] == 'csv':
         ind = k
 
+print(files[ind])
 
 # convert csv-file to dataframe and capitalize the barccode column
-df_wae_c = pd.DataFrame(pd.read_csv(f"{filepath}/{files[ind]}", dtype=str, sep=';'))
-df_wae_c['strichcode'] = df_wae_c['strichcode'].str.upper()
+df_wae_loeschen = pd.DataFrame(pd.read_csv(f"{filepath}/{files[ind]}", dtype=str, sep=';'))
+df_wae_loeschen['barcode'] = df_wae_loeschen['barcode'].str.upper()
 
-mixer.init()
+print(len(df_wae_loeschen))
 
+for i, el in enumerate(df_wae_loeschen['barcode']):
+    print(el)
 
-# print the welcome message
-print(f"\n\t[{46 * '='}]\n\t[ {'Archivbestand Chemie':<44} ]")
-print(f"\t[{46 * ' '}]\n\t[ {'Use a barcode scanner to scan items.':<44} ]")
-print(f"\t[ {'You will get acoustic and visual feedback.':<44} ]\n\t[{46 * ' '}]")
-print(f"\t[ {'Version 1, by zolo':>44} ]\n\t[{46 * '='}]\n")
-
-
-# the main loop of the script
-while True:
-    barcodes.append(input(f"scan item (or press 'q' to exit): "))
-    if barcodes[-1] == 'q':
-        # if the input is 'q'
-        mixer.quit()
-        print(f"\n\t[{46 * '='}]\n\t[ {'goodbye':<44} ]\n\t[{46 * '='}]\n")
-        break
-    else:
-        # the input is not 'q'
-        df_scanned = df_wae_c[df_wae_c['strichcode'].isin(barcodes)]
-        if df_scanned[df_scanned['hicr'].notna()].size > 0:
-            # if the column 'hicr' is not empty => marked to retain
-            plays = mixer.Sound(f"{soundpath}/success.mp3")
-            plays.play()
-            print(f"\n\t\t\t\t[{22 * '='}]")
-            print(f"\t\t\t\t[ {'KEEP!':<20} ]\n\t\t\t", end='')
-        elif df_scanned[df_scanned['hicr'].isna()].size > 0:
-            # if the column 'hicr' is empty => not marked to retain
-            plays = mixer.Sound(f"{soundpath}/error.mp3")
-            plays.play()
-            print(f"\n\t[{22 * '='}]")
-            print(f"\t[ THROW{16 * ' '}]")
-        else:
-            # if the item's barcode is not in the spreadsheet
-            plays = mixer.Sound(f"{soundpath}/error.mp3")
-            plays.play()
-            print(f"\n\t[{22 * '='}]")
-            print(f"\t[ {'barcode not found':<20} ]")
-    print(f"\t[{22 * '='}]\n")
-    barcodes.pop()
-    # catch an error (if barcodes are not correctly removed from list)
-    if len(barcodes) != 0:
-        plays = mixer.Sound(f"{soundpath}/error.mp3")
-        plays.play()
-        print(f"\n\t[{22 * '='}]")
-        print(f"\t[ list error: {len(barcodes):<8} ]")
-        print(f"\t[{22 * '='}]\n")
+print(len(df_wae_loeschen))
