@@ -59,11 +59,11 @@ mixer.init()
 
 
 # print the welcome message
-print(f"\n\t[{46 * '='}]\n\t[ {'Archivbestand Chemie':<44} ]")
-print(f"\t[{46 * ' '}]\n\t[ {'Use a barcode scanner to scan items.':<44} ]")
-print(f"\t[ {'You will get acoustic and visual feedback.':<44} ]\n\t[{46 * ' '}]")
-print(f"\t[{46 * ' '}]\n\t[ {str('Reading from file: ' + files[ind]):<44} ]")
-print(f"\t[{46 * ' '}]\n\t[ {'Version 1, by zolo':>44} ]\n\t[{46 * '='}]\n")
+print(f"\n\t[{46 * '='}]\n\t[ {'Scan your items':<44} ]")
+print(f"\t[{46 * ' '}]\n\t[ {'Use a barcode scanner to scan items,':<44} ]")
+print(f"\t[ {'you will get acoustic and visual feedback.':<44} ]\n\t[{46 * ' '}]")
+print(f"\t[{46 * ' '}]\n\t[ {str('File: ' + files[ind]):<44} ]")
+print(f"\t[{46 * ' '}]\n\t[ {'version 1, by zolo@zhaw.ch':>44} ]\n\t[{46 * '='}]\n")
 
 
 # the main loop of the script
