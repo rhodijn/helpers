@@ -19,6 +19,7 @@ import pandas as pd
 from dotenv import dotenv_values
 
 barcodes = []
+delim = ';'
 files = []
 filepath = 'files'
 secrets = dotenv_values('.env')
@@ -61,7 +62,7 @@ for k, v in enumerate(files):
 print(f"File: {files[ind]}")
 
 # convert csv-file to dataframe and capitalize the barccode column
-df_wae_loeschen = pd.DataFrame(pd.read_csv(f"{filepath}/{files[ind]}", dtype=str, sep=';'))
+df_wae_loeschen = pd.DataFrame(pd.read_csv(f"{filepath}/{files[ind]}", dtype=str, sep=delim))
 df_wae_loeschen['barcode'] = df_wae_loeschen['barcode'].str.upper()
 
 
@@ -75,6 +76,6 @@ for i, el in enumerate(df_wae_loeschen['barcode']):
         df_wae_loeschen.loc[i, 'mms id'] = e
 
 try:
-    df_wae_loeschen.to_csv(f"{filepath}/output/wae_loeschen.csv", sep=';')
+    df_wae_loeschen.to_csv(f"{filepath}/output/wae_loeschen.csv", sep=delim)
 except Exception as e:
     print(f"an error occurred: {e}")

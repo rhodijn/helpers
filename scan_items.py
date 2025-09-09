@@ -35,8 +35,8 @@ import pandas as pd
 barcodes = []
 files = []
 filepath = 'files/chemie'
-soundpath = 'sounds'
 ind = None
+soundpath = 'sounds'
 
 
 # scan folder and exclude subfolders

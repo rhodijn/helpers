@@ -10,7 +10,7 @@
 #   ##                 ##
 #     ###################
 
-# This script compares two csv-files and reports the differences.
+# This script brings the items of two separate lists together.
 
 
 import csv, os, re
