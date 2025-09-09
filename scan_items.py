@@ -34,7 +34,7 @@ import pandas as pd
 
 barcodes = []
 files = []
-filepath = 'files/chemie'
+filepath = 'resources/chemie'
 ind = None
 soundpath = 'sounds'
 
