@@ -70,6 +70,10 @@ for i, el in enumerate(df_rp_loeschen['barcode']):
     req, get_item_info = api_request('get', el, 'json', 'items?item_barcode=')
     data = json.loads(get_item_info.content.decode(encoding='utf-8'))
     try:
+        df_rp_loeschen.loc[i, 'call_number'] = data['holding_data']['call_number']
+    except Exception as e:
+        df_rp_loeschen.loc[i, 'call_number'] = e
+    try:
         df_rp_loeschen.loc[i, 'title'] = data['bib_data']['title']
     except Exception as e:
         df_rp_loeschen.loc[i, 'title'] = e
