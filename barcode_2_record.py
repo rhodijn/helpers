@@ -11,7 +11,7 @@
 #     ###################
 
 
-# this script find the mms ids to the items in a list of barcodes
+# this script generates a friendly list of titles, authors (including editions)
 
 
 import json, os, requests

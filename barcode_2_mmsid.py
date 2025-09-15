@@ -11,7 +11,7 @@
 #     ###################
 
 
-# this script find the mms ids to the items in a list of barcodes
+# this script finds the mms ids to the items in a list of barcodes
 
 
 import json, os, requests
