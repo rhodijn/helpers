@@ -39,7 +39,7 @@ for k, v in enumerate(files):
 
 print(f"File: {files[ind]}")
 
-# convert csv-file to dataframe and capitalize the barccode column
+# generate datafrome from csv-file, capitalize the barccode column
 df_wae_loeschen = pd.DataFrame(pd.read_csv(f"{filepath}/{files[ind]}", dtype=str, sep=delim))
 df_wae_loeschen['barcode'] = df_wae_loeschen['barcode'].str.upper()
 
