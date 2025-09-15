@@ -14,6 +14,14 @@
 # this module provides functions to perform api-requests
 
 
+import requests
+
+from dotenv import dotenv_values
+
+
+secrets = dotenv_values('.env')
+
+
 def api_request(method: str, value: str, frmt: str, par_1: str, par_2='') -> tuple:
     """
     perform an api request and return the answer

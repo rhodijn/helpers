@@ -14,17 +14,16 @@
 # this script generates a friendly list of titles, authors (including editions)
 
 
-import json, os, requests
+import json, os
 import pandas as pd
 
-from dotenv import dotenv_values
 from modules.apihandler import *
+
 
 barcodes = []
 delim = ';'
 files = []
 filepath = 'files'
-secrets = dotenv_values('.env')
 
 
 # scan folder and exclude subfolders
@@ -39,6 +38,7 @@ for k, v in enumerate(files):
         ind = k
 
 print(f"File: {files[ind]}")
+
 
 # convert csv-file to dataframe and capitalize the barccode column
 df_rp_loeschen = pd.DataFrame(pd.read_csv(f"{filepath}/{files[ind]}", dtype=str, sep=delim))
