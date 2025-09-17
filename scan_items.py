@@ -35,6 +35,9 @@ import pandas as pd
 
 
 barcodes = []
+bc_keep = []
+bc_throw = []
+bc_not_found = []
 files = []
 filepath = 'resources/chemie'
 ind = None
@@ -80,19 +83,22 @@ while True:
         # the input is not 'q'
         df_scanned = df_wae_c[df_wae_c['strichcode'].isin(barcodes)]
         if df_scanned[df_scanned['hicr'].notna()].size > 0:
-            # if the column 'hicr' is not empty => marked to retain
+            # if the column 'hicr' is not empty => marked for retention
+            bc_keep.append(barcodes[-1])
             plays = mixer.Sound(f"{soundpath}/success.mp3")
             plays.play()
             print(f"\n\t\t\t\t[{22 * '='}]")
             print(f"\t\t\t\t[ {'KEEP!':<20} ]\n\t\t\t", end='')
         elif df_scanned[df_scanned['hicr'].isna()].size > 0:
-            # if the column 'hicr' is empty => not marked to retain
+            # if the column 'hicr' is empty => not marked for retention
+            bc_throw.append(barcodes[-1])
             plays = mixer.Sound(f"{soundpath}/error.mp3")
             plays.play()
             print(f"\n\t[{22 * '='}]")
             print(f"\t[ {'THROW':<20} ]")
         else:
             # if the item's barcode is not in the spreadsheet
+            bc_not_found.append(barcodes[-1])
             plays = mixer.Sound(f"{soundpath}/warning.mp3")
             plays.play()
             print(f"\n\t[{22 * '='}]")
