@@ -93,7 +93,7 @@ while True:
             print(f"\t[ {'THROW':<20} ]")
         else:
             # if the item's barcode is not in the spreadsheet
-            plays = mixer.Sound(f"{soundpath}/error.mp3")
+            plays = mixer.Sound(f"{soundpath}/warning.mp3")
             plays.play()
             print(f"\n\t[{22 * '='}]")
             print(f"\t[ {'barcode not found':<20} ]")
