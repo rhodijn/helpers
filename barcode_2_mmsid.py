@@ -41,17 +41,24 @@ print(f"File: {files[ind]}")
 
 # generate datafrome from csv-file, capitalize the barccode column
 df_wae_loeschen = pd.DataFrame(pd.read_csv(f"{filepath}/{files[ind]}", dtype=str, sep=delim))
-df_wae_loeschen['barcode'] = df_wae_loeschen['barcode'].str.upper()
+df_wae_loeschen['Barcode'] = df_wae_loeschen['Barcode'].str.upper()
 
 
-for i, el in enumerate(df_wae_loeschen['barcode']):
+for i, el in enumerate(df_wae_loeschen['Barcode']):
     req, get_iz_mmsid = api_request('get', el, 'json', 'items?item_barcode=')
     data = json.loads(get_iz_mmsid.content.decode(encoding='utf-8'))
     try:
         mmsid_iz = data['bib_data']['mms_id']
-        df_wae_loeschen.loc[i, 'mms id'] = mmsid_iz
-    except Exception as e:
-        df_wae_loeschen.loc[i, 'mms id'] = e
+        df_wae_loeschen.loc[i, 'MMS ID'] = mmsid_iz
+    except:
+        df_wae_loeschen.loc[i, 'MMS ID'] = 'not found'
+
+    req, get_nz_mmsid = api_request('get', mmsid_iz, 'json', 'bibs/', '?view=full&expand=p_avail')
+    data = json.loads(get_nz_mmsid.content.decode(encoding='utf-8'))
+    try:
+        df_wae_loeschen.loc[i, 'Network Id'] = data['linked_record_id']['value']
+    except:
+        df_wae_loeschen.loc[i, 'Network Id'] = 'not found'
 
 try:
     df_wae_loeschen.to_csv(f"{filepath}/output/wae_loeschen.csv", sep=delim)
