@@ -62,5 +62,6 @@ for i, el in enumerate(df_wae_loeschen['Barcode']):
 
 try:
     df_wae_loeschen.to_csv(f"{filepath}/output/wae_loeschen.csv", sep=delim)
+    print(f"process finished, list saved to: {filepath}/output/wae_loeschen.csv")
 except Exception as e:
     print(f"an error occurred: {e}")
