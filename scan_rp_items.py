@@ -39,7 +39,6 @@ filepath = 'resources/rp'
 ind = None
 soundpath = 'sounds'
 
-
 # scan folder and exclude subfolders
 files = os.listdir(f"{filepath}/")
 files = [f for f in files if os.path.isfile(f"{filepath}/{f}")]
