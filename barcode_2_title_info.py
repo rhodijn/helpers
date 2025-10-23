@@ -74,6 +74,6 @@ for i, el in enumerate(df_rp_loeschen['barcode']):
         df_rp_loeschen.loc[i, 'date_of_publication'] = e
 
 try:
-    df_rp_loeschen.to_csv(f"{filepath}/output/rp342-346_loeschen.csv", sep=delim)
+    df_rp_loeschen.to_csv(f"{filepath}/output/title_list.csv", sep=delim)
 except Exception as e:
     print(f"an error occurred: {e}")

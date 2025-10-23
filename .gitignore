@@ -1,4 +1,5 @@
 # ignore
+modules/__pycache__
 files/
 processed/
 .DS_Store
