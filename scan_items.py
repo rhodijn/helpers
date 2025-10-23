@@ -29,7 +29,6 @@ EM000006324055
 """
 
 
-from pygame import mixer
 import os
 import pandas as pd
 
@@ -60,8 +59,6 @@ for k, v in enumerate(files):
 df_wae_c = pd.DataFrame(pd.read_csv(f"{filepath}/{files[ind]}", dtype=str, sep=';'))
 df_wae_c['strichcode'] = df_wae_c['strichcode'].str.upper()
 
-mixer.init()
-
 
 # print the welcome message
 print(f"\n\t[{46 * '='}]\n\t[ {'Scan your items':<44} ]")
@@ -76,7 +73,6 @@ while True:
     barcodes.append(input(f"scan item (or press 'q' to exit): "))
     if barcodes[-1] == 'q':
         # if the input is 'q'
-        mixer.quit()
         print(f"\n\t[{46 * '='}]\n\t[ {'goodbye':<44} ]\n\t[{46 * '='}]\n")
         break
     else:
@@ -85,30 +81,22 @@ while True:
         if df_scanned[df_scanned['hicr'].notna()].size > 0:
             # if the column 'hicr' is not empty => marked for retention
             bc_keep.append(barcodes[-1])
-            plays = mixer.Sound(f"{soundpath}/success.mp3")
-            plays.play()
             print(f"\n\t\t\t\t[{22 * '='}]")
             print(f"\t\t\t\t[ {'KEEP!':<20} ]\n\t\t\t", end='')
         elif df_scanned[df_scanned['hicr'].isna()].size > 0:
             # if the column 'hicr' is empty => not marked for retention
             bc_throw.append(barcodes[-1])
-            plays = mixer.Sound(f"{soundpath}/error.mp3")
-            plays.play()
             print(f"\n\t[{22 * '='}]")
             print(f"\t[ {'THROW':<20} ]")
         else:
             # if the item's barcode is not in the spreadsheet
             bc_not_found.append(barcodes[-1])
-            plays = mixer.Sound(f"{soundpath}/warning.mp3")
-            plays.play()
             print(f"\n\t[{22 * '='}]")
             print(f"\t[ {'barcode not found':<20} ]")
     print(f"\t[{22 * '='}]\n")
     barcodes.pop()
     # catch an error (if barcodes are not correctly removed from list)
     if len(barcodes) != 0:
-        plays = mixer.Sound(f"{soundpath}/error.mp3")
-        plays.play()
         print(f"\n\t[{22 * '='}]")
         print(f"\t[ {str('list error: ' + str(len(barcodes))):<20} ]")
         print(f"\t[{22 * '='}]\n")
