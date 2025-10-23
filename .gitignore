@@ -1,6 +1,5 @@
 # ignore
 files/
 processed/
-.vscode/
 .DS_Store
 .env
