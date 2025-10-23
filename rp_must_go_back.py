@@ -81,19 +81,16 @@ while True:
         if df_scanned[df_scanned['keep'].notna()].size > 0:
             # if the column 'hicr' is not empty => marked for retention
             bc_keep.append(barcodes[-1])
-            plays.play()
             print(f"\n\t\t\t\t[{22 * '='}]")
             print(f"\t\t\t\t[ {'KEEP!':<20} ]\n\t\t\t", end='')
         elif df_scanned[df_scanned['keep'].isna()].size > 0:
             # if the column 'hicr' is empty => not marked for retention
             bc_throw.append(barcodes[-1])
-            plays.play()
             print(f"\n\t[{22 * '='}]")
             print(f"\t[ {'THROW':<20} ]")
         else:
             # if the item's barcode is not in the spreadsheet
             bc_not_found.append(barcodes[-1])
-            plays.play()
             print(f"\n\t[{22 * '='}]")
             print(f"\t[ {'barcode not found':<20} ]")
     print(f"\t[{22 * '='}]\n")
