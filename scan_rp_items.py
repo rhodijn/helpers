@@ -70,26 +70,32 @@ while True:
     barcodes.append(input(f"scan item (or press 'q' to exit): "))
     if barcodes[-1] in ['Q', 'q', '']:
         # if the input is 'q'
-        print(f"\n\t[{46 * '='}]\n\t[ {'goodbye':<44} ]\n\t[{46 * '='}]\n")
+        print(f"\n\t[{46 * '='}]\n\t[ {'goodbye':<44} ]\n\t[{46 * ' '}]")
+        print(f"\t[ items to retain:  {len(bc_keep):<26} ]")
+        print(f"\t[ items to deselect:  {len(bc_throw):<24} ]")
+        print(f"\t[ items not found:  {len(bc_not_found):<26} ]\n\t[{46 * '='}]")
         break
     else:
         # the input is not 'q'
         df_scanned = df_rp[df_rp['barcode'].isin(barcodes)]
         if df_scanned[df_scanned['keep'].notna()].size > 0:
             # if the column 'hicr' is not empty => marked for retention
-            bc_keep.append(barcodes[-1])
+            if barcodes[-1] not in bc_keep:
+                bc_keep.append(barcodes[-1])
             playsound(f"{soundpath}/success.mp3", block=False)
             print(f"\n\t\t\t\t[{22 * '='}]")
             print(f"\t\t\t\t[ {'KEEP!':<20} ]\n\t\t\t", end='')
         elif df_scanned[df_scanned['keep'].isna()].size > 0:
             # if the column 'hicr' is empty => not marked for retention
-            bc_throw.append(barcodes[-1])
+            if barcodes[-1] not in bc_throw:
+                bc_throw.append(barcodes[-1])
             playsound(f"{soundpath}/error.mp3", block=False)
             print(f"\n\t[{22 * '='}]")
             print(f"\t[ {'THROW':<20} ]")
         else:
             # if the item's barcode is not in the spreadsheet
-            bc_not_found.append(barcodes[-1])
+            if barcodes[-1] not in bc_not_found:
+                bc_not_found.append(barcodes[-1])
             playsound(f"{soundpath}/warning.mp3", block=False)
             print(f"\n\t[{22 * '='}]")
             print(f"\t[ {'barcode not found':<20} ]")
