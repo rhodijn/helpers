@@ -108,15 +108,18 @@ while True:
 # write log files
 with open(f"{filepath}/log/retain.csv", 'w', newline='') as csv_log:
     csv_writer = csv.writer(csv_log, delimiter=';')
+    csv_writer.writerow(['barcode'])
     for item in bc_keep:
         csv_writer.writerow([item])
 
 with open(f"{filepath}/log/deselect.csv", 'w', newline='') as csv_log:
     csv_writer = csv.writer(csv_log, delimiter=';')
+    csv_writer.writerow(['barcode'])
     for item in bc_throw:
         csv_writer.writerow([item])
 
 with open(f"{filepath}/log/not_found.csv", 'w', newline='') as csv_log:
     csv_writer = csv.writer(csv_log, delimiter=';')
+    csv_writer.writerow(['barcode'])
     for item in bc_not_found:
         csv_writer.writerow([item])
