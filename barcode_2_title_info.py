@@ -72,6 +72,10 @@ for i, el in enumerate(df_rp_loeschen['barcode']):
         df_rp_loeschen.loc[i, 'date_of_publication'] = data['bib_data']['date_of_publication']
     except Exception as e:
         df_rp_loeschen.loc[i, 'date_of_publication'] = e
+    try:
+        df_rp_loeschen.loc[i, 'api_call'] = req
+    except Exception as e:
+        df_rp_loeschen.loc[i, 'api_call'] = e
 
 try:
     df_rp_loeschen.to_csv(f"{filepath}/output/title_list.csv", sep=delim)
