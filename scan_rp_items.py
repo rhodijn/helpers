@@ -28,6 +28,7 @@ EM000007997722
 
 import os
 import pandas as pd
+from playsound3 import playsound
 
 
 barcodes = []
@@ -67,7 +68,7 @@ print(f"\t[{46 * ' '}]\n\t[ {'version 1, by zolo@zhaw.ch':>44} ]\n\t[{46 * '='}]
 # the main loop of the script
 while True:
     barcodes.append(input(f"scan item (or press 'q' to exit): "))
-    if barcodes[-1] == 'q':
+    if barcodes[-1] in ['Q', 'q', '']:
         # if the input is 'q'
         print(f"\n\t[{46 * '='}]\n\t[ {'goodbye':<44} ]\n\t[{46 * '='}]\n")
         break
@@ -77,16 +78,19 @@ while True:
         if df_scanned[df_scanned['keep'].notna()].size > 0:
             # if the column 'hicr' is not empty => marked for retention
             bc_keep.append(barcodes[-1])
+            playsound(f"{soundpath}/success.mp3", block=False)
             print(f"\n\t\t\t\t[{22 * '='}]")
             print(f"\t\t\t\t[ {'KEEP!':<20} ]\n\t\t\t", end='')
         elif df_scanned[df_scanned['keep'].isna()].size > 0:
             # if the column 'hicr' is empty => not marked for retention
             bc_throw.append(barcodes[-1])
+            playsound(f"{soundpath}/error.mp3", block=False)
             print(f"\n\t[{22 * '='}]")
             print(f"\t[ {'THROW':<20} ]")
         else:
             # if the item's barcode is not in the spreadsheet
             bc_not_found.append(barcodes[-1])
+            playsound(f"{soundpath}/warning.mp3", block=False)
             print(f"\n\t[{22 * '='}]")
             print(f"\t[ {'barcode not found':<20} ]")
     print(f"\t[{22 * '='}]\n")
