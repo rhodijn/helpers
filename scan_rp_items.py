@@ -26,7 +26,7 @@ EM000007997722
 """
 
 
-import os
+import csv, os
 import pandas as pd
 from playsound3 import playsound
 
@@ -106,3 +106,9 @@ while True:
         print(f"\n\t[{22 * '='}]")
         print(f"\t[ {str('list error: ' + str(len(barcodes))):<20} ]")
         print(f"\t[{22 * '='}]\n")
+
+# write log files
+with open(f"{filepath}/log/retain.csv", 'w', newline='') as csv_log:
+    csv_writer = csv.writer(csv_log, delimiter=';')
+    for el in bc_keep:
+        csv_writer.writerow(el)
