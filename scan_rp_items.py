@@ -110,5 +110,15 @@ while True:
 # write log files
 with open(f"{filepath}/log/retain.csv", 'w', newline='') as csv_log:
     csv_writer = csv.writer(csv_log, delimiter=';')
-    for el in bc_keep:
-        csv_writer.writerow(el)
+    for item in bc_keep:
+        csv_writer.writerow([item])
+
+with open(f"{filepath}/log/deselect.csv", 'w', newline='') as csv_log:
+    csv_writer = csv.writer(csv_log, delimiter=';')
+    for item in bc_throw:
+        csv_writer.writerow([item])
+
+with open(f"{filepath}/log/not_found.csv", 'w', newline='') as csv_log:
+    csv_writer = csv.writer(csv_log, delimiter=';')
+    for item in bc_not_found:
+        csv_writer.writerow([item])
